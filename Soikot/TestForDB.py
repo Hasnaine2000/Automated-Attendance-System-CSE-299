@@ -3,12 +3,6 @@ import face_recognition
 import os
 import numpy as np
 
-# Folder containing images
-IMAGE_FOLDER = "photos"
-
-# Dictionary to store encodings
-known_face_encodings = []
-known_face_names = []
 
 
 
