@@ -21,7 +21,7 @@ for image_name in os.listdir(IMAGE_FOLDER):
             known_face_encodings.append(encodings[0])
             known_face_names.append(image_name.split('.')[0])  # Remove file extension
 
-# Start video capture
+
 video_capture = cv2.VideoCapture(0)
 frame_skip = 10  # Process face recognition every 10th frame
 frame_count = 0

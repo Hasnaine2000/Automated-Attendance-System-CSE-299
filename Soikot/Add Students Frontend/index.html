@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Folder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 10px;
+            font-size: 14px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upload a Folder of Images</h2>
+        <input type="file" id="folderInput" webkitdirectory multiple>
+        <button onclick="uploadFiles()">Upload</button>
+        <p class="message" id="statusMessage"></p>
+    </div>
+
+    <script>
+        function uploadFiles() {
+            let input = document.getElementById('folderInput');
+            let files = input.files;
+            let statusMessage = document.getElementById('statusMessage');
+
+            if (files.length === 0) {
+                statusMessage.textContent = "Please select a folder.";
+                statusMessage.style.color = "red";
+                return;
+            }
+
+            let formData = new FormData();
+            for (let file of files) {
+                formData.append("files[]", file);
+            }
+
+            statusMessage.textContent = "Uploading...";
+            statusMessage.style.color = "#007bff";
+
+            fetch("upload.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                statusMessage.textContent = data;
+                statusMessage.style.color = "green";
+            })
+            .catch(error => {
+                statusMessage.textContent = "Upload failed!";
+                statusMessage.style.color = "red";
+                console.error("Error:", error);
+            });
+        }
+    </script>
+</body>
+</html>
