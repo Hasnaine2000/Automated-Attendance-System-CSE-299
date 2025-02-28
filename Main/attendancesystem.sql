@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2025 at 03:29 PM
+-- Generation Time: Feb 28, 2025 at 03:43 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -108,19 +108,24 @@ ALTER TABLE `admin`
 -- Indexes for table `attendance`
 --
 ALTER TABLE `attendance`
-  ADD PRIMARY KEY (`date`,`sid`,`course_id`,`section_id`);
+  ADD PRIMARY KEY (`date`,`sid`,`course_id`,`section_id`),
+  ADD KEY `fk_attendance_student` (`sid`),
+  ADD KEY `fk_attendance_classroom` (`course_id`,`section_id`);
 
 --
 -- Indexes for table `classroom`
 --
 ALTER TABLE `classroom`
-  ADD PRIMARY KEY (`course_id`,`section_id`);
+  ADD PRIMARY KEY (`course_id`,`section_id`),
+  ADD KEY `fk_classroom_faculty` (`fid`),
+  ADD KEY `fk_classroom_student` (`sid`);
 
 --
 -- Indexes for table `faculty`
 --
 ALTER TABLE `faculty`
-  ADD PRIMARY KEY (`fid`);
+  ADD PRIMARY KEY (`fid`),
+  ADD KEY `fk_faculty_classroom` (`course_id`,`section_id`);
 
 --
 -- Indexes for table `student`
@@ -137,6 +142,30 @@ ALTER TABLE `student`
 --
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `attendance`
+--
+ALTER TABLE `attendance`
+  ADD CONSTRAINT `fk_attendance_classroom` FOREIGN KEY (`course_id`,`section_id`) REFERENCES `classroom` (`course_id`, `section_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_attendance_student` FOREIGN KEY (`sid`) REFERENCES `student` (`sid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `classroom`
+--
+ALTER TABLE `classroom`
+  ADD CONSTRAINT `fk_classroom_faculty` FOREIGN KEY (`fid`) REFERENCES `faculty` (`fid`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_classroom_student` FOREIGN KEY (`sid`) REFERENCES `student` (`sid`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `faculty`
+--
+ALTER TABLE `faculty`
+  ADD CONSTRAINT `fk_faculty_classroom` FOREIGN KEY (`course_id`,`section_id`) REFERENCES `classroom` (`course_id`, `section_id`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
