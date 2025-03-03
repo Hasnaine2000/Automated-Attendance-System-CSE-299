@@ -17,11 +17,14 @@ if (!isset($_SESSION['admin_id'])) {
 <body>
     <div class="dashboard-container">
         <h2>Welcome, Admin!</h2>
+        
        
 
         <!-- Add Students Button -->
-        <a href="add_students/index.html"><button class="button">Add Students</button></a>
-        <a href="initialize_classroom/classroom_initializer.php"><button class="button">Classroom Initializer</button></a>
+        <a href="add_students/index.html"><button class="button">Add Students</button></a> 
+        
+        <a href="initialize_classroom/classroom_initializer.php"><button class="button">Classroom Initializer</button></a> 
+        
 
         <!-- Logout Button -->
         <a href="logout.php"><button class="logout-btn">Logout</button></a>
