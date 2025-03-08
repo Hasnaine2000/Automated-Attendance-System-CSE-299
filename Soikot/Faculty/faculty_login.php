@@ -97,10 +97,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="login-container">
         <h2>Faculty Login</h2>
         <form method="POST" action="faculty_login.php">
-            <label for="fid">Faculty ID:</label>
-            <input type="text" name="fid" required>
-            <label for="password">Password:</label>
-            <input type="password" name="password" required>
+            
+            <input type="text" name="fid" placeholder="Faculty Initial" required>
+            
+            <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
     </div>
