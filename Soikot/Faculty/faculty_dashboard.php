@@ -44,7 +44,7 @@ $result = $stmt->get_result();
             border-radius: 10px;
             box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
             text-align: center;
-            width: 320px;
+            width: 350px;
         }
 
         h2 {
@@ -77,25 +77,18 @@ $result = $stmt->get_result();
         .logout-btn:hover {
             background: darkred;
         }
-
-        @media (max-width: 400px) {
-            .dashboard-container {
-                width: 90%;
-                padding: 20px;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="dashboard-container">
         <h2>Welcome, Faculty!</h2>
-       
+        
         <h3>Your Courses:</h3>
         <?php while ($row = $result->fetch_assoc()): ?>
-            <form action="faculty_classroom.php" method="GET">
-                <input type="hidden" name="course_id" value="<?php echo $row['course_id']; ?>">
-                <input type="hidden" name="section_id" value="<?php echo $row['section_id']; ?>">
-                <button type="submit">Course: <?php echo $row['course_id']; ?> | Section: <?php echo $row['section_id']; ?></button>
+            <form action="faculty_course.php" method="GET">
+                <input type="hidden" name="course_id" value="<?php echo htmlspecialchars($row['course_id']); ?>">
+                <input type="hidden" name="section_id" value="<?php echo htmlspecialchars($row['section_id']); ?>">
+                <button type="submit">Course: <?php echo htmlspecialchars($row['course_id']); ?> | Section: <?php echo htmlspecialchars($row['section_id']); ?></button>
             </form>
         <?php endwhile; ?>
         <a href="logout.php"><button class="logout-btn">Logout</button></a>
