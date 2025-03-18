@@ -77,10 +77,7 @@ $section_id = htmlspecialchars($_GET["section_id"]);
         </form>
         
         <button onclick="alert('Manual Attendance coming soon!')">Manual Attendance</button>
-        <a href="Attendance_History/show_dates.php?course_id=<?php echo $course_id; ?>&section_id=<?php echo $section_id; ?>">
-    <button>Attendance History</button>
-</a>
-
+        <button onclick="alert('Attendance History coming soon!')">Attendance History</button>
         
         <a href="faculty_dashboard.php"><button class="back-btn">Back</button></a>
     </div>

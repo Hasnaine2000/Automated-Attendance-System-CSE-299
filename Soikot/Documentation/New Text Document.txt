@@ -1,0 +1,38 @@
+CREATE DATABASE IF NOT EXISTS attendancesystem;
+USE attendancesystem;
+
+-- Admin Table
+CREATE TABLE admin (
+    id VARCHAR(50) PRIMARY KEY,
+    password VARCHAR(255) NOT NULL
+);
+
+-- Attendance Table
+CREATE TABLE attendance (
+    date DATE NOT NULL,
+    sid VARCHAR(50) NOT NULL,
+    course_id VARCHAR(50) NOT NULL,
+    section_id INT NOT NULL
+);
+
+-- Classroom Table
+CREATE TABLE classroom (
+    course_id VARCHAR(50) NOT NULL,
+    section_id INT NOT NULL,
+    fid VARCHAR(50) NOT NULL,
+    sid VARCHAR(50) NOT NULL
+);
+
+-- Faculty Table
+CREATE TABLE faculty (
+    fid VARCHAR(50) PRIMARY KEY,
+    password VARCHAR(255) NOT NULL,
+    
+);
+
+-- Student Table
+CREATE TABLE student (
+    sid VARCHAR(50) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    face BLOB
+);
