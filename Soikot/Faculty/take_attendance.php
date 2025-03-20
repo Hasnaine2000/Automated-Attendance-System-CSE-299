@@ -22,57 +22,43 @@ $output = shell_exec("python take_attendance.py $course_id $section_id 2>&1");
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taking Attendance</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #f4f4f4;
-        }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 350px;
-        }
-        h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-        pre {
-            background: #eaeaea;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: left;
-            overflow-x: auto;
-        }
-        .back-btn {
-            background: gray;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            margin-top: 15px;
-            cursor: pointer;
-        }
-        .back-btn:hover {
-            background: darkgray;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <h2>Taking Attendance...</h2>
-        <pre><?php echo htmlspecialchars($output); ?></pre>
-        <a href="faculty_dashboard.php"><button class="back-btn">Back</button></a>
+
+<body class="bg-gradient-to-r from-blue-900 to-blue-800 text-white flex flex-col items-center min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-white w-full shadow-md py-4">
+        <div class="container mx-auto flex items-center justify-between px-6">
+            <div class="flex items-center">
+                <img src="logo.png" alt="Logo" class="h-12 mr-3">
+                <span class="text-2xl font-bold text-blue-900">Automated Attendance System</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="flex flex-1 items-center justify-center mt-12">
+        <div class="bg-white text-gray-800 p-10 rounded-xl shadow-lg w-[500px] text-center"> <!-- Made the box wider -->
+            <h2 class="text-3xl font-extrabold text-blue-600 mb-3">Taking Attendance...</h2>
+            <div class="border-t-4 border-blue-500 w-20 mx-auto mb-6"></div>
+
+            <!-- Output from the Python script -->
+            <pre class="text-left bg-gray-100 p-4 rounded-lg overflow-auto"><?php echo htmlspecialchars($output); ?></pre>
+
+            <!-- Back Button with corrected link -->
+            <a href="faculty_dashboard.php">
+                <button class="bg-gray-600 text-white py-3 rounded-lg w-full font-semibold transition duration-300 hover:bg-gray-700 hover:shadow-xl mt-4">Finish Class</button>
+            </a>
+
+        </div>
     </div>
+
 </body>
+
 </html>

@@ -27,82 +27,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faculty Login</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #f4f4f4;
-        }
-
-        .login-container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 320px;
-        }
-
-        h2 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #333;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            background: #0056b3;
-        }
-
-        @media (max-width: 400px) {
-            .login-container {
-                width: 90%;
-                padding: 20px;
-            }
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 </head>
-<body>
-    <div class="login-container">
-        <h2>Faculty Login</h2>
-        <form method="POST" action="faculty_login.php">
-            
-            <input type="text" name="fid" placeholder="Faculty Initial" required>
-            
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
+<body class="bg-blue-900 text-white flex flex-col items-center min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-white w-full shadow-md">
+        <div class="container mx-auto px-6 py-4 flex items-center">
+            <!-- Logo -->
+            <img src="logo.png" alt="Logo" class="h-12 mr-3">
+            <!-- Title -->
+            <span class="text-2xl font-bold text-blue-900">Automated Attendance System</span>
+        </div>
+    </nav>
+
+    <!-- Centering the Login Form -->
+    <div class="flex flex-1 items-center justify-center mt-12">
+        <div class="bg-white text-gray-800 p-8 rounded-lg shadow-lg w-96">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-blue-500 mb-4">Faculty Login</h2>
+                <div class="border-t-2 border-blue-500 w-16 mx-auto mb-6"></div>
+            </div>
+
+            <form method="POST" action="faculty_login.php">
+                <div class="mb-4">
+                    <label class="block text-gray-600 font-semibold">Faculty ID</label>
+                    <input type="text" name="fid" placeholder="Enter Faculty ID" required
+                        class="border p-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-600 font-semibold">Password</label>
+                    <input type="password" name="password" placeholder="Enter Password" required
+                        class="border p-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+                <button type="submit" class="bg-blue-500 text-white p-2 rounded w-full font-semibold hover:bg-blue-600 transition">Login</button>
+            </form>
+
+            <div class="text-center mt-4">
+                <a href="#" class="text-blue-500 hover:underline">Forgot Password?</a>
+            </div>
+        </div>
     </div>
+
 </body>
 </html>

@@ -58,74 +58,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manual Attendance</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #f4f4f4;
-        }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 400px;
-        }
-        h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-        .student-list {
-            text-align: left;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            background: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        button:hover {
-            background: #218838;
-        }
-        .back-btn {
-            background: gray;
-        }
-        .back-btn:hover {
-            background: darkgray;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <h2>Manual Attendance</h2>
-        <p><strong>Course:</strong> <?php echo $course_id; ?> | <strong>Section:</strong> <?php echo $section_id; ?></p>
-        <p><strong>Date:</strong> <?php echo $date; ?></p>
+<body class="bg-gradient-to-r from-blue-900 to-blue-800 text-white flex flex-col items-center min-h-screen">
 
-        <form method="POST">
-            <div class="student-list">
-                <?php foreach ($students as $student) { ?>
-                    <label>
-                        <input type="checkbox" name="present_students[]" value="<?php echo $student['sid']; ?>">
-                        <?php echo $student['name']; ?> (<?php echo $student['sid']; ?>)
-                    </label><br>
-                <?php } ?>
+    <!-- Navbar -->
+    <nav class="bg-white w-full shadow-md py-4">
+        <div class="container mx-auto flex items-center justify-between px-6">
+            <div class="flex items-center">
+                <img src="../logo.png" alt="Logo" class="h-12 mr-3">
+                <span class="text-2xl font-bold text-blue-900">Automated Attendance System</span>
             </div>
-            <button type="submit">Submit Attendance</button>
-        </form>
+        </div>
+    </nav>
 
-        <a href="faculty_dashboard.php"><button class="back-btn">Back</button></a>
+    <!-- Manual Attendance Container -->
+    <div class="flex flex-1 items-center justify-center mt-12">
+        <div class="bg-white text-gray-800 p-10 rounded-xl shadow-lg w-96 text-center">
+            <h2 class="text-3xl font-extrabold text-blue-600 mb-3">Manual Attendance</h2>
+            <p class="text-gray-600 mb-6">Course: <?php echo $course_id; ?> | Section: <?php echo $section_id; ?></p>
+            <p class="text-gray-600 mb-6">Date: <?php echo $date; ?></p>
+            <div class="border-t-4 border-blue-500 w-20 mx-auto mb-6"></div>
+
+            <!-- Form to mark attendance -->
+            <form method="POST">
+                <div class="text-left">
+                    <?php foreach ($students as $student) { ?>
+                        <label class="block mb-2">
+                            <input type="checkbox" name="present_students[]" value="<?php echo $student['sid']; ?>" class="mr-2">
+                            <?php echo $student['name']; ?> (<?php echo $student['sid']; ?>)
+                        </label>
+                    <?php } ?>
+                </div>
+                <button type="submit" class="bg-blue-600 text-white py-3 rounded-lg w-full font-semibold transition duration-300 hover:bg-blue-700 hover:shadow-xl mt-4">Submit Attendance</button>
+            </form>
+
+            <!-- Back Button with updated functionality -->
+            <a href="../faculty_course.php?course_id=<?php echo $course_id; ?>&section_id=<?php echo $section_id; ?>">
+                <button class="bg-gray-600 text-white py-3 rounded-lg w-full font-semibold transition duration-300 hover:bg-gray-700 hover:shadow-xl mt-4">Back</button>
+            </a>
+        </div>
     </div>
+
 </body>
 </html>

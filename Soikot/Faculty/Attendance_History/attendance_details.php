@@ -40,66 +40,58 @@ $present_sids = array_column($result_present->fetch_all(MYSQLI_ASSOC), 'sid');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance Details</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            height: 100vh;
-            background: #f4f4f4;
-        }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 400px;
-        }
-        h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-        .present { color: green; }
-        .absent { color: red; }
-        .back-btn {
-            background: gray;
-            color: white;
-            border: none;
-            padding: 10px;
-            margin-top: 20px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .back-btn:hover {
-            background: darkgray;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <h2>Attendance on <?php echo $date; ?></h2>
-        <table border="1" width="100%">
-            <tr>
-                <th>Student ID</th>
-                <th>Name</th>
-                <th>Status</th>
-            </tr>
-            <?php foreach ($students as $student): ?>
-                <tr>
-                    <td><?php echo $student['sid']; ?></td>
-                    <td><?php echo $student['name']; ?></td>
-                    <td class="<?php echo in_array($student['sid'], $present_sids) ? 'present' : 'absent'; ?>">
-                        <?php echo in_array($student['sid'], $present_sids) ? 'Present' : 'Absent'; ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-        <a href="attendance_history.php?course_id=<?php echo $course_id; ?>&section_id=<?php echo $section_id; ?>">
-            <button class="back-btn">Back</button>
-        </a>
+<body class="bg-gradient-to-r from-blue-900 to-blue-800 text-white flex flex-col items-center min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-white w-full shadow-md py-4">
+        <div class="container mx-auto flex items-center justify-between px-6">
+            <div class="flex items-center">
+                <img src="logo.png" alt="Logo" class="h-12 mr-3">
+                <span class="text-2xl font-bold text-blue-900">Automated Attendance System</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Attendance Details Container -->
+    <div class="flex flex-1 items-center justify-center mt-12 px-4">
+        <div class="bg-white text-gray-800 p-10 rounded-xl shadow-lg w-full max-w-5xl">
+            <h2 class="text-3xl font-extrabold text-blue-600 mb-3">Attendance on <?php echo $date; ?></h2>
+            <p class="text-gray-600 mb-6">Here is the attendance status for the selected date</p>
+            <div class="border-t-4 border-blue-500 w-20 mx-auto mb-6"></div>
+            
+            <!-- Attendance Table -->
+            <table class="min-w-full text-left mb-4">
+                <thead>
+                    <tr>
+                        <th class="py-2 px-4 border-b text-lg font-semibold text-blue-600">Student ID</th>
+                        <th class="py-2 px-4 border-b text-lg font-semibold text-blue-600">Name</th>
+                        <th class="py-2 px-4 border-b text-lg font-semibold text-blue-600">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($students as $student): ?>
+                        <tr>
+                            <td class="py-2 px-4 border-b"><?php echo $student['sid']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $student['name']; ?></td>
+                            <td class="py-2 px-4 border-b 
+                                <?php echo in_array($student['sid'], $present_sids) ? 'text-green-600' : 'text-red-600'; ?>">
+                                <?php echo in_array($student['sid'], $present_sids) ? 'Present' : 'Absent'; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+            <!-- Back Button -->
+            <a href="show_dates.php?course_id=<?php echo $course_id; ?>&section_id=<?php echo $section_id; ?>">
+                <button class="bg-gray-600 text-white py-3 rounded-lg w-full font-semibold transition-all duration-200 ease-in-out hover:bg-gray-700 hover:shadow-lg mt-4">
+                    Back
+                </button>
+            </a>
+        </div>
     </div>
+
 </body>
 </html>
