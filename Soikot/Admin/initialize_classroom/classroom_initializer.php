@@ -18,78 +18,63 @@ $student_result = $conn->query($student_query);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classroom Initializer</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #f4f4f4;
-        }
-        .form-container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 350px;
-        }
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        select[multiple] {
-            height: 150px;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 10px;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="form-container">
-        <h2>Initialize Classroom</h2>
-        <form action="initialize_classroom.php" method="post">
-            <input type="text" name="course_id" placeholder="Enter Course ID" required>
-            <input type="number" name="section_id" placeholder="Enter Section ID" required>
 
-            <!-- Faculty Selection -->
-            <select name="fid" required>
-                <option value="">Select Faculty ID</option>
-                <?php while ($faculty = $faculty_result->fetch_assoc()) { ?>
-                    <option value="<?= $faculty['fid'] ?>"><?= $faculty['fid'] ?></option>
-                <?php } ?>
-            </select>
+<body class="bg-gradient-to-r from-blue-900 to-blue-800 text-white flex flex-col items-center min-h-screen">
 
-            <!-- Student Selection (Multiple) -->
-            <select name="sid[]" multiple required>
-                <?php while ($student = $student_result->fetch_assoc()) { ?>
-                    <option value="<?= $student['sid'] ?>"><?= $student['name'] ?></option>
-                <?php } ?>
-            </select>
+    <!-- Navbar -->
+    <nav class="bg-white w-full shadow-md py-4">
+        <div class="container mx-auto flex items-center justify-between px-6">
+            <div class="flex items-center">
+                <img src="../logo.png" alt="Logo" class="h-12 mr-3">
+                <span class="text-2xl font-bold text-blue-900">Automated Attendance System</span>
+            </div>
+        </div>
+    </nav>
 
-            <button type="submit" name="initialize">Initialize Classroom</button>
-        </form>
+    <!-- Classroom Initializer Form Container -->
+    <div class="flex flex-1 items-center justify-center mt-12">
+        <div class="bg-white text-gray-800 p-10 rounded-xl shadow-lg w-96 text-center">
+            <h2 class="text-3xl font-extrabold text-blue-600 mb-3">Initialize Classroom</h2>
+            <div class="border-t-4 border-blue-500 w-20 mx-auto mb-6"></div>
+
+            <form action="initialize_classroom.php" method="post">
+                <!-- Course ID Input -->
+                <input type="text" name="course_id" placeholder="Enter Course ID" required class="w-full p-3 mb-4 rounded-lg border border-gray-300 text-gray-800">
+
+                <!-- Section ID Input -->
+                <input type="number" name="section_id" placeholder="Enter Section ID" required class="w-full p-3 mb-4 rounded-lg border border-gray-300 text-gray-800">
+
+                <!-- Faculty Selection -->
+                <select name="fid" required class="w-full p-3 mb-4 rounded-lg border border-gray-300 text-gray-800">
+                    <option value="">Select Faculty ID</option>
+                    <?php while ($faculty = $faculty_result->fetch_assoc()) { ?>
+                        <option value="<?= $faculty['fid'] ?>"><?= $faculty['fid'] ?></option>
+                    <?php } ?>
+                </select>
+
+                <!-- Student Selection (Multiple) -->
+                <select name="sid[]" multiple required class="w-full p-3 mb-4 rounded-lg border border-gray-300 text-gray-800" style="height: 100px;">
+                    <?php while ($student = $student_result->fetch_assoc()) { ?>
+                        <option value="<?= $student['sid'] ?>"><?= $student['name'] ?></option>
+                    <?php } ?>
+                </select>
+
+                <!-- Submit Button -->
+                <button type="submit" name="initialize" class="bg-blue-600 text-white py-3 rounded-lg w-full font-semibold transition-all duration-200 ease-in-out hover:bg-blue-700 hover:shadow-lg">Initialize Classroom</button>
+            </form>
+
+            <!-- Back Button with Updated Style -->
+            <a href="../dashboard.php" class="mt-4 inline-block bg-gray-600 hover:bg-gray-700 text-white py-3 rounded-lg w-full font-semibold transition-all duration-200 ease-in-out hover:shadow-lg">Back</a>
+        </div>
     </div>
+
 </body>
+
 </html>

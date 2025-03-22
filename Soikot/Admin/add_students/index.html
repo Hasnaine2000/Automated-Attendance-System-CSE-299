@@ -4,57 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Folder</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            padding: 20px;
-        }
-        .container {
-            background: white;
-            max-width: 400px;
-            margin: auto;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            color: #333;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-            width: 100%;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .message {
-            margin-top: 10px;
-            font-size: 14px;
-            color: green;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <h2>Upload a Folder of Images</h2>
-        <input type="file" id="folderInput" webkitdirectory multiple>
-        <button onclick="uploadFiles()">Upload</button>
-        <p class="message" id="statusMessage"></p>
+<body class="bg-gradient-to-r from-blue-900 to-blue-800 text-white flex flex-col items-center min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-white w-full shadow-md py-4">
+        <div class="container mx-auto flex items-center justify-between px-6">
+            <div class="flex items-center">
+                <img src="../logo.png" alt="Logo" class="h-12 mr-3">
+                <span class="text-2xl font-bold text-blue-900">Automated Attendance System</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Upload Folder Container -->
+    <div class="flex flex-1 items-center justify-center mt-12">
+        <div class="bg-white text-gray-800 p-10 rounded-xl shadow-lg w-96 text-center">
+            <h2 class="text-3xl font-extrabold text-blue-600 mb-3">Upload a Folder of Images</h2>
+            <div class="border-t-4 border-blue-500 w-20 mx-auto mb-6"></div>
+            <p class="message mt-4" id="statusMessage" style="font-size: 14px;"></p>
+            <input type="file" id="folderInput" webkitdirectory multiple class="w-full p-3 mb-4 rounded-lg border border-gray-300 text-gray-800">
+            <button onclick="uploadFiles()" class="bg-blue-600 text-white py-3 rounded-lg w-full font-semibold transition-all duration-200 ease-in-out hover:bg-blue-700 hover:shadow-lg">Upload</button>
+            
+            
+
+            <!-- Back Button with Updated Style -->
+            <a href="../dashboard.php" class="mt-4 inline-block bg-gray-600 hover:bg-gray-700 text-white py-3 rounded-lg w-full font-semibold transition-all duration-200 ease-in-out hover:shadow-lg">Back</a>
+        </div>
     </div>
 
     <script>

@@ -2,7 +2,7 @@ import cv2
 import face_recognition
 import os
 import mysql.connector
-import numpy as np
+import pickle  # Use pickle for safe encoding storage
 
 # Database connection
 conn = mysql.connector.connect(
@@ -14,7 +14,7 @@ conn = mysql.connector.connect(
 cursor = conn.cursor()
 
 # Folder containing images
-IMAGE_FOLDER = "uploads"  # Now reading from 'uploads'
+IMAGE_FOLDER = "uploads"  # Folder where images are stored
 
 # Load known faces dynamically from the folder
 for image_name in os.listdir(IMAGE_FOLDER):
@@ -27,29 +27,36 @@ for image_name in os.listdir(IMAGE_FOLDER):
         
         if encodings:
             face_encoding = encodings[0]
-            
+
             # Extract ID and Name from filename (assuming format "ID-Name.jpg")
             base_name = os.path.splitext(image_name)[0]  # Remove file extension
             parts = base_name.split('-')
 
             if len(parts) >= 2:
-                sid = parts[0].strip()  # ID part
-                name = parts[1].strip()  # Name part
+                sid = parts[0].strip()  # Student ID
+                name = parts[1].strip()  # Student Name
             else:
                 print(f"Skipping {image_name} - Invalid filename format")
                 continue
 
-            face_blob = face_encoding.tobytes()  # Convert encoding to BLOB
+            face_blob = pickle.dumps(face_encoding)  # ✅ Convert encoding to BLOB using pickle
 
-            # Insert into database
-            try:
-                cursor.execute("INSERT INTO Student (sid, name, face) VALUES (%s, %s, %s)", (sid, name, face_blob))
-                conn.commit()
+            # ✅ Check if the student already exists in the database
+            cursor.execute("SELECT sid FROM student WHERE sid = %s", (sid,))
+            result = cursor.fetchone()
+
+            if result:
+                # ✅ If student exists, update the face encoding
+                cursor.execute("UPDATE student SET face = %s WHERE sid = %s", (face_blob, sid))
+                print(f"Updated face encoding for {name} (ID: {sid}) in database.")
+            else:
+                # ✅ If student does not exist, insert new entry
+                cursor.execute("INSERT INTO student (sid, name, face) VALUES (%s, %s, %s)", (sid, name, face_blob))
                 print(f"Stored {name} (ID: {sid}) in database.")
-            except mysql.connector.IntegrityError:
-                print(f"{name} (ID: {sid}) already exists in the database, skipping...")
+            
+            conn.commit()  # Save changes
 
 # Close database connection
 cursor.close()
 conn.close()
-print("Face encodings stored successfully.")
+print("Face encodings stored/updated successfully.")
