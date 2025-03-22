@@ -39,7 +39,7 @@ $dates = $result_dates->fetch_all(MYSQLI_ASSOC);
     <nav class="bg-white w-full shadow-md py-4">
         <div class="container mx-auto flex items-center justify-between px-6">
             <div class="flex items-center">
-                <img src="logo.png" alt="Logo" class="h-12 mr-3">
+                <img src="../logo.png" alt="Logo" class="h-12 mr-3">
                 <span class="text-2xl font-bold text-blue-900">Automated Attendance System</span>
             </div>
         </div>
