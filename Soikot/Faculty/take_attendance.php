@@ -45,7 +45,7 @@ $output = shell_exec("python take_attendance.py $course_id $section_id 2>&1");
     <!-- Main Content -->
     <div class="flex flex-1 items-center justify-center mt-12">
         <div class="bg-white text-gray-800 p-10 rounded-xl shadow-lg w-[500px] text-center"> <!-- Made the box wider -->
-            <h2 class="text-3xl font-extrabold text-blue-600 mb-3">Taking Attendance...</h2>
+            <h2 class="text-3xl font-extrabold text-blue-600 mb-3">Attendance Result!</h2>
             <div class="border-t-4 border-blue-500 w-20 mx-auto mb-6"></div>
 
             <!-- Output from the Python script -->

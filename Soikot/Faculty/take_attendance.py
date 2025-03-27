@@ -68,7 +68,7 @@ while True:
 
     elapsed_time = time.time() - start_time
     if elapsed_time > 20:
-        print("20 seconds have passed. Closing the program.")
+        print("Class time ended. Closing the program.")
         break
 
     if time.time() - last_check_time >= 2:
@@ -88,7 +88,9 @@ while True:
                 sid = known_face_sids[best_match_index]
                 if sid in enrolled_students:  # Ensure student is enrolled in this course and section
                     recognized_this_frame.add(sid)
-                    print(f"Student {sid} is present")
+                    # Modify the print statement to include only the current time
+                    print(f"Student {sid} was present at {datetime.datetime.now().strftime('%H:%M:%S')}")
+
 
                     student_detection_counts[sid] += 1
 
@@ -102,8 +104,8 @@ while True:
                                 conn.commit()
                                 print(f"Student {sid} marked present for Course: {course_id}, Section: {section_id} on {current_date}")
                                 students_saved.add(sid)
-                            else:
-                                print(f"Student {sid} is already marked present today.")
+                           # else:
+                            #    print(f"Student {sid} is already marked present today.")
                         except mysql.connector.Error as e:
                             print(f"Database error: {e}")
                         finally:
@@ -113,8 +115,28 @@ while True:
             top, right, bottom, left = face_location
             cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
             cv2.putText(frame, str(sid), (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+            
+    # Function to calculate the position for center alignment
+    def get_center_position(text, frame_width, font, font_scale, thickness):
+        text_size = cv2.getTextSize(text, font, font_scale, thickness)[0]
+        text_width = text_size[0]
+        x = (frame_width - text_width) // 2  # Calculate the x-coordinate for center alignment
+        return (x, 30)  # Default y-coordinate is 30 for the first line
 
-    cv2.imshow("Video", frame)
+    # Get the frame width
+    frame_width = frame.shape[1]
+
+    # First line of the text
+    info_text1 = f"Taking Attendance!"
+    x, y = get_center_position(info_text1, frame_width, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2)
+    cv2.putText(frame, info_text1, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+
+    # Second line of the text
+    info_text2 = f"Course: {course_id}, Section: {section_id}, Date: {current_date}"
+    x, y = get_center_position(info_text2, frame_width, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2)
+    cv2.putText(frame, info_text2, (x, y + 40), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+
+    cv2.imshow("Taking Attendance", frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
