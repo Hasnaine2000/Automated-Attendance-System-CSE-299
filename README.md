@@ -75,5 +75,5 @@ The system uses the following database tables:
 This project is developed for **educational purposes** and is not intended for commercial use.
 
 ---
-**🎯 Developed as part of the CSE299 Course**
+**🎯 Developed as part of the CSE299 Course of NSU**
 
