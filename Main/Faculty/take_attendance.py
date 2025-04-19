@@ -136,6 +136,8 @@ while True:
     cv2.putText(frame, info_text2, (x, y + 40), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
 
     cv2.imshow("Taking Attendance", frame)
+  
+    cv2.setWindowProperty("Taking Attendance", cv2.WND_PROP_TOPMOST, 1)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
